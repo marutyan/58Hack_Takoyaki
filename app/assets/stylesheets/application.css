@@ -109,6 +109,17 @@
     border: 1px solid;
     cursor: pointer;
   }
+
+  .pulldown-button {
+    display: inline-block;
+    background-color: #007bff;
+    color: #fff;
+    padding: 10px 20px;
+    text-decoration: none;
+    border-radius: 5px;
+    text-align: center;
+    cursor: pointer;
+  }
   
   .edit-delete-wrapper {
     display: flex;

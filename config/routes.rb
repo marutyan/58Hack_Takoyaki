@@ -1,4 +1,6 @@
 Rails.application.routes.draw do
+  get "comments/index"
+  devise_for :users
   # Define your application routes per the DSL in https://guides.rubyonrails.org/routing.html
 
   # Reveal health status on /up that returns 200 if the app boots with no exceptions, otherwise 500.
@@ -13,5 +15,9 @@ Rails.application.routes.draw do
   # root "posts#index"
   # localhost:3000/posts/
   resources :posts, only: [:index, :new, :create, :edit, :update, :destroy]
+
+  root 'comments#index' # ここを追記します
+  get 'comments/index' # 自動で設定されたルーティング
+  
 
 end

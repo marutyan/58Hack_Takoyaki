@@ -9,11 +9,15 @@ class PostsController < ApplicationController
 
     def create
         @post = Post.new(post_params)
-        if @post.save
-            redirect_to posts_path
-        else
-            render :new
-        end
+        #if post_count == 0
+            if @post.save
+                redirect_to posts_path
+            else
+                render :new
+            end
+        #else
+            #redirect_to posts_path
+        #end
     end
 
     def edit
@@ -38,6 +42,10 @@ class PostsController < ApplicationController
     private
 
     def post_params
-        params.require(:post).permit(:title, :content)
+        params.require(:post).permit(:title, :content, :category, :age)
+    end
+
+    def post_count
+        @post_count = Post.count
     end
 end

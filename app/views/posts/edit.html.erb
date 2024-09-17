@@ -2,13 +2,20 @@
 
 <%= form_with model: @post, html: {class: "form-container"} do |form| %>
     <div class="form-input">
-        <%= form.label :title %>
+        <%= form.label :タイトル %>
         <%= form.text_field :title %>
     </div>
     
     <div class="form-input">
-        <%= form.label :content %>
+        <%= form.label :詳細 %>
         <%= form.text_area :content %>
+    </div>
+
+    <div class="pulldown-button">
+        <%= form.label :カテゴリ %>
+        <%= form.select :category, ["校則変更案", "その他"] %>
+        <%= form.label :学年 %>
+        <%= form.select :age, ["高校1年生", "高校2年生", "高校3年生"] %>
     </div>
     
     <div class="button-container">
