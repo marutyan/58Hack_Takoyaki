@@ -1,0 +1,25 @@
+<h1>投稿編集</h1>
+
+<%= form_with model: @post, html: { class: "form-container" } do |form| %>
+  <!-- フォームの開始 -->
+  <div class="form-input">
+    <!-- タイトルのラベルとテキストフィールドを表示 -->
+    <%= form.label :タイトル %>
+    <%= form.text_field :title %>
+  </div>
+  <div class="form-input">
+    <!-- 内容のラベルとテキストエリアを表示 -->
+    <%= form.label :詳細 %>
+    <%= form.text_area :content %>
+  </div>
+
+  <div class="pulldown-button">
+        <%= form.label :カテゴリ %>
+        <%= form.select :category, ["身だしなみ", "持ち物", "校外に関すること", "設備に関すること", "その他"] %> 
+    </div>
+
+  <div class="button-container">
+    <!-- 更新ボタンを表示 -->
+    <%= form.submit "更新", class: "link-button" %>
+  </div>
+<% end %>
