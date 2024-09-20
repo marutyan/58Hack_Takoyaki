@@ -1,8 +1,22 @@
 "use client";
 import React from "react";
+import { useEffect } from "react";
 import Logo from "./Logo";
+import { useRouter } from "next/navigation";
 
 function LoginScreen() {
+  const router = useRouter();
+  
+  useEffect(() => {
+    // 3秒後LoginPage遷移
+    const timer = setTimeout(() => {
+      router.push("/LoginPage");
+    }, 3000); 
+
+    // クリーンアップ関数でタイマーをクリア
+    return () => clearTimeout(timer);
+  }, [router]);
+
   return (
     <>
       <main className="login-screen">
