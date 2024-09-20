@@ -2,12 +2,19 @@
 import React from "react";
 import InputField from "./InputField";
 import Button from "./Button";
+import { useRouter } from "next/navigation";
 
 function LoginPage() {
   const inputFields = [
     { label: "メールアドレス", type: "email" },
     { label: "パスワード", type: "password" }
   ];
+  const router = useRouter();
+
+  const handleCreateAccountClick = (event) => {
+    event.preventDefault();
+    router.push("/UserTypeSelection");
+  }
 
   return (
     <main className="login-page">
@@ -20,7 +27,12 @@ function LoginPage() {
         <img src="https://cdn.builder.io/api/v1/image/assets/TEMP/cc77a74764ff26f241d9a035ceaad0ce5229f6bdc02975cfe2e76e9ab8960491?placeholderIfAbsent=true&apiKey=c5b43863a5b74dfaac997754dc46d7dc" alt="" className="decorative-image" />
         <Button text="ログイン" />
         <hr className="divider" />
-        <a href="#" className="create-account">アカウント作成はこちら</a>
+        <a href="#"
+        className="create-account"
+        onClick={handleCreateAccountClick}
+        >
+          アカウント作成はこちら
+          </a>
       </form>
       <style jsx>{`
         .login-page {
