@@ -13,7 +13,9 @@ Rails.application.routes.draw do
   # Defines the root path route ("/")
   # root "posts#index"
 
-  resources :posts, only: [:index, :new, :create, :edit, :update, :destroy]
+  resources :posts, only: [:index, :new, :create, :edit, :update, :destroy] do
+    resources :favorites, only: [:create, :destroy]
+ end
   resources :login, only: [:index] # ここを追記します
 
   root 'login#index' # ここを追記します

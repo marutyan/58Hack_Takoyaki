@@ -22,6 +22,24 @@
         <!-- 削除ボタンを表示し、対応する記事を削除するためのフォームを作成します -->
         <%= button_to "削除", post_path(post), method: :delete, class: "link-delete-button" %>
       </div>
+
+    
+     <% begin %>
+        <% if post.favorited?(current_user) %>
+          <!-- 一致するレコードが存在する＝すでにいいね済みの場合はdestroyアクションへ -->
+          <%= button_to post_favorite_path(post, post.favorites.find_by(user: current_user)), method: :delete do %>
+          <span style="color:red;">❤︎</span>
+          <% end %>
+        <% else %>
+          <!-- 一致するレコードが存在しない＝まだいいねしていない場合はcreateアクションへ -->
+          <%= button_to post_favorites_path(post), method: :post do %>
+            <span>❤︎</span>
+          <% end %>
+        <% end %>
+      <% rescue NoMethodError => e %>
+        <p>エラーが発生しました: <%= e.message %></p>
+      <% end %>
+
     </li>
   <% end %>
 </ul>
