@@ -2,10 +2,9 @@ class FavoritesController < ApplicationController
   before_action :set_post
 
   def create
-    # 既存のFavoriteをチェック
-    existing_favorite = @post.favorites.find_by(user: current_user)
-    if existing_favorite
-      redirect_to posts_path, alert: '既にお気に入りに追加されています。'
+    # ユーザーが他の投稿にお気に入りを付けていないか確認
+    if current_user.favorites.exists?
+      redirect_to posts_path, alert: '他の投稿に既にお気に入りを付けています。'
     else
       favorite = @post.favorites.new(user: current_user)
       if favorite.save

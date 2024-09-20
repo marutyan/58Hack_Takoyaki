@@ -11,5 +11,5 @@ class Favorite < ApplicationRecord
       errors.add(:user_id, "は他のツイートにお気に入りを付けています。")
     end
   end
-  
+
 end

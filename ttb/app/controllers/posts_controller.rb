@@ -5,6 +5,18 @@ class PostsController < ApplicationController
 
   def index
     @posts = Post.all
+
+    @posts = Post.all.includes(:favorites)
+
+    @posts = Post.includes(:user).all
+
+    @category_counts_by_age = User.joins(:posts)
+                                    .group('users.age', 'posts.category')
+                                    .count
+
+    @chart_data = @category_counts_by_age.map do |(age, category), count|
+      { age: age, category: category, count: count }
+    end
   end
 
   def new
