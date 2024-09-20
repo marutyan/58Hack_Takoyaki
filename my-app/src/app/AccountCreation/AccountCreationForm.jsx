@@ -1,8 +1,10 @@
 "use client";
 import React from 'react';
 import FormField from './FormField';
+import {useRouter} from 'next/navigation';
 
 const AccountCreationForm = () => {
+  const router = useRouter();
   const fields = [
     { label: 'メールアドレス', id: 'email', type: 'email' },
     { label: 'パスワード', id: 'password', type: 'password' },
@@ -10,8 +12,13 @@ const AccountCreationForm = () => {
     { label: 'アカウント名', id: 'account-name' },
   ];
 
+  const handleSubmit = (event) => {
+    event.preventDefault();
+    router.push('/PersonalInfoRegistration');
+  }
+
   return (
-    <form className="form-container">
+    <form className="form-container" onSubmit={handleSubmit}>
       {fields.map((field) => (
         <FormField key={field.id} {...field} />
       ))}
