@@ -3,42 +3,58 @@ import React from "react";
 import InputField from "./InputField";
 import Button from "./Button";
 import { useRouter } from "next/navigation";
+import { useForm } from "react-hook-form";
+import { useCallback } from "react";
 
 function LoginPage() {
-  const inputFields = [
-    { label: "メールアドレス", type: "email" },
-    { label: "パスワード", type: "password" }
-  ];
   const router = useRouter();
 
   const handleCreateAccountClick = (event) => {
     event.preventDefault();
     router.push("/UserTypeSelection");
   }
-
-  const handleLoginClick = (event) => {
-    event.preventDefault();
-    //http://localhost:8000/loginにEmailとpasswordを送信
-    fetch("http://localhost:8000/login", {
-      method: "POST",
-      headers: {
-        "Content-Type": "application/json"
-      },
-      body: JSON.stringify({
-        email: "marutyan310@gmail.com",
-        password: "password"
-      })})
-
-  }
   
+
+  const { handleSubmit , register} = useForm();
+
+  const handleLoginClick = useCallback(
+    async(data) => {
+      try{
+        const response = await fetch("http://localhost:8000/login", {
+          method: "POST",
+          mode: "cors",
+          headers: {
+            "Content-Type": "application/json",
+            Accept: "application/json",
+          },
+          body: JSON.stringify(data),
+
+      })
+      if (!response.ok) {
+       console.error("responseがダメだったみたい", response);
+      }
+      router.push("/HomePage");
+
+      throw new Error("ログインに失敗しました");
+
+      
+      }catch(error){
+        console.log("catchに入ったよ", error);
+      }
+  });
 
   return (
     <main className="login-page">
       <h1 className="login-title">ログイン</h1>
-      <form className="login-form" onSubmit={handleLoginClick}>
-        {inputFields.map((field, index) => (
-          <InputField key={index} label={field.label} type={field.type} />
-        ))}
+      <form className="login-form" onSubmit={handleSubmit(handleLoginClick)}>
+
+        <InputField label="メールアドレス" type="email" {
+          ...register("email", { required: "emailを入力してください" })
+        }/>
+        <InputField label="パスワード" type="password" {
+          ...register("password", { required: "パスワードを入力してください" })
+        }/>
+        
         <a href="#" className="forgot-password">パスワードを忘れた方はこちら</a>
         <img src="https://cdn.builder.io/api/v1/image/assets/TEMP/cc77a74764ff26f241d9a035ceaad0ce5229f6bdc02975cfe2e76e9ab8960491?placeholderIfAbsent=true&apiKey=c5b43863a5b74dfaac997754dc46d7dc" alt="" className="decorative-image" />
         <Button text="ログイン" onClick={handleLoginClick} />

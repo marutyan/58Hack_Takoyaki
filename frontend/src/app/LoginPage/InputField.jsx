@@ -1,6 +1,6 @@
-import React from "react";
+import React, { forwardRef } from "react";
 
-function InputField({ label, type }) {
+const InputField = forwardRef(({ label, type, ...props }, ref) => {
   return (
     <div className="input-group">
       <label htmlFor={`${type}Input`} className="input-label">{label}</label>
@@ -10,6 +10,8 @@ function InputField({ label, type }) {
         className="input-field"
         placeholder={label}
         aria-label={label}
+        ref={ref}
+        {...props}
       />
       <style jsx>{`
         .input-group {
@@ -30,10 +32,13 @@ function InputField({ label, type }) {
           padding: 5px 10px;
           border: none;
           font-weight: 400;
+          color:#000;
         }
       `}</style>
     </div>
   );
-}
+});
+
+InputField.displayName = "InputField";
 
 export default InputField;
