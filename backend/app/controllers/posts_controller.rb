@@ -63,6 +63,16 @@ class PostsController < ApplicationController
     @posts = current_user.posts
   end
 
+  def category_counts
+    category_counts = Post.group(:category).count
+    render json: category_counts
+  end
+
+  def age_counts
+    age_counts = User.joins(:posts).group(:age).count
+    render json: age_counts
+  end
+
   private
 
   def post_params

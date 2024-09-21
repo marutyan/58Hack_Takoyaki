@@ -15,6 +15,10 @@ Rails.application.routes.draw do
 
   resources :posts, only: [:index, :new, :create, :edit, :update, :destroy] do
     resources :favorites, only: [:create, :destroy]
+    collection do
+      get 'category_counts' 
+      get 'age_counts'
+    end
  end
   resources :login, only: [:index] # ここを追記します
 
