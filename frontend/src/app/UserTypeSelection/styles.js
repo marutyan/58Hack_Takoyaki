@@ -6,6 +6,7 @@ export default css.global`
     display: flex;
     max-width: 360px;
     flex-direction: column;
+    align-items: center;
     overflow: hidden;
     padding: 55px 61px 359px;
   }
@@ -76,5 +77,18 @@ export default css.global`
     clip: rect(0, 0, 0, 0);
     white-space: nowrap;
     border: 0;
+  }
+  
+  .form-container {
+    display: flex;
+    flex-direction: column;
+    align-items: stretch; 
+    gap: 15px; 
+    margin-top: 20px; 
+    width: 100%; 
+      padding: 22px 10px; 
+    border: 1px solid #b3b3b3;
+    border-radius: 4px; /* 修正: 角を少し丸くする */
+    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
   }
 `;
