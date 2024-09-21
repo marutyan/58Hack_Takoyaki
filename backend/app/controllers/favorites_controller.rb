@@ -1,6 +1,12 @@
 class FavoritesController < ApplicationController
   before_action :set_post
 
+  def index
+    @favorites = current_user.favorites
+
+    render json: @favorites
+  end
+
   def create
     # ユーザーが他の投稿にお気に入りを付けていないか確認
     if current_user.favorites.exists?
