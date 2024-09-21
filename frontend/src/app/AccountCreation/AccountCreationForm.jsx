@@ -17,10 +17,10 @@ const AccountCreationForm = () => {
         method: "POST",
         // mode: "cors",
         // credentials: true ,
-        // headers: {
-        //   "Content-Type": "application/json",
-        //   Accept: "application/json",
-        // },
+        headers: {
+           "Content-Type": "application/json",
+           Accept: "application/json",
+         },
         body: JSON.stringify({ user: data }),
       });
 
@@ -30,12 +30,14 @@ const AccountCreationForm = () => {
         console.error("responseがダメだったみたい", response);
       }else{
         router.push("/PersonalInfoRegistration");
+        console.log("responseがOKだったみたい", response);
       }
       throw new Error("アカウント作成に失敗しました");
     } catch (error) {
       console.log("catchに入ったよ", error);
     }
   });
+
 
 
   return (
