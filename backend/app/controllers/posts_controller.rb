@@ -69,7 +69,7 @@ class PostsController < ApplicationController
   end
 
   def age_counts
-    age_counts = User.joins(:posts).group(:age).count
+    age_counts = User.group(:age).count
     render json: age_counts
   end
 
