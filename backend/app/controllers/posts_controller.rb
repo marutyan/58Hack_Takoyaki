@@ -34,9 +34,9 @@ class PostsController < ApplicationController
       @post = current_user.posts.new(post_params)
       if @post.save
         #redirect_to @post, notice: 'Postが作成されました。'
-        redirect_to posts_path
+        render json: @post, status: :created
       else
-        render :new
+        render json: @post.errors, status: :unprocessable_entity
       end
     end
   end
@@ -47,16 +47,16 @@ class PostsController < ApplicationController
   # 記事を更新するアクション
   def update
     if @post.update(post_params)
-      redirect_to posts_path
+      render json: @post, status: :ok
     else
-      render :edit
+      render json: @post.errors, status: :unprocessable_entity
     end
   end
 
   # 記事を削除するアクション
   def destroy
     @post.destroy
-    redirect_to posts_path
+    render json: { message: 'Post was successfully deleted.' }, status: :ok
   end
 
   def my_posts
@@ -71,7 +71,7 @@ class PostsController < ApplicationController
 
   def authorize_user!
     unless @post.user == current_user
-      redirect_to posts_path, alert: '他のユーザーの投稿を編集または削除することはできません。'
+      render json: { error: '他のユーザーの投稿を編集または削除することはできません。' }, status: :forbidden
     end
   end
 

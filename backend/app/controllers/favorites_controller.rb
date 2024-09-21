@@ -10,13 +10,13 @@ class FavoritesController < ApplicationController
   def create
     # ユーザーが他の投稿にお気に入りを付けていないか確認
     if current_user.favorites.exists?
-      redirect_to posts_path, alert: '他の投稿に既にお気に入りを付けています。'
+      render json: { error: '他の投稿に既にお気に入りを付けています。' }, status: :forbidden
     else
       favorite = @post.favorites.new(user: current_user)
       if favorite.save
-        redirect_to posts_path, notice: 'お気に入りに追加しました。'
+        render json: favorite, status: :created
       else
-        redirect_to posts_path, alert: 'お気に入りに追加できませんでした。'
+        render json: favorite.errors, status: :unprocessable_entity
       end
     end
   end
@@ -24,9 +24,9 @@ class FavoritesController < ApplicationController
   def destroy
     favorite = @post.favorites.find_by(user: current_user)
     if favorite.destroy
-      redirect_to posts_path, notice: 'お気に入りを解除しました。'
+      render json: { message: 'お気に入りを解除しました。' }, status: :ok
     else
-      redirect_to posts_path, alert: 'お気に入りを解除できませんでした。'
+      render json: { error: 'お気に入りを解除できませんでした。' }, status: :unprocessable_entity
     end
   end
 
