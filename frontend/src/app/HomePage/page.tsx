@@ -1,6 +1,9 @@
 'use client'
 
+
 import { use, useEffect, useState } from 'react'
+import Link from 'next/link'
+
 import { Button } from "@/src/app/components/ui/button"
 import { Card, CardContent, CardFooter, CardHeader } from "@/src/app/components/ui/card"
 import { Sheet, SheetContent, SheetHeader, SheetTitle, SheetTrigger } from "@/src/app/components/ui/sheet"
@@ -9,6 +12,7 @@ import { Input } from "@/src/app/components/ui/input"
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "@/src/app/components/ui/select"
 import { Textarea } from "@/src/app/components/ui/textarea"
 import { Bell, Book, ChevronRight, Heart, History, Menu, PlusCircle, Search, User } from "lucide-react"
+
 
 
 type Post = {
@@ -108,7 +112,8 @@ type Post = {
               <Menu />
             </Button>
           </SheetTrigger>
-          <SheetContent side="left" className='bg-white'>
+
+          <SheetContent side="left" className="bg-white" >
             <SheetHeader>
               <SheetTitle>メニュー</SheetTitle>
             </SheetHeader>
@@ -117,10 +122,13 @@ type Post = {
                 <User className="mr-2 h-4 w-4" />
                 ログイン情報
               </Button>
+              <Link href="/kousoku" passHref>
               <Button variant="ghost" className="w-full justify-start">
-                <Book className="mr-2 h-4 w-4" />
+              <Book className="mr-2 h-4 w-4" />
                 校則一覧
               </Button>
+              </Link>
+
               <Button variant="ghost" className="w-full justify-start">
                 <ChevronRight className="mr-2 h-4 w-4" />
                 統計一覧
@@ -193,7 +201,8 @@ type Post = {
             <PlusCircle className="h-6 w-6" />
           </Button>
         </DialogTrigger>
-        <DialogContent className='bg-white'>
+
+        <DialogContent className="bg-white">
           <DialogHeader>
             <DialogTitle>校則変更の提案</DialogTitle>
           </DialogHeader>
@@ -220,7 +229,9 @@ type Post = {
       {/* Post detail dialog */}
       {selectedPost && (
         <Dialog open={!!selectedPost} onOpenChange={() => setSelectedPost(null)}>
-          <DialogContent className='bg-white'>
+
+          <DialogContent className="bg-white">
+
             <DialogHeader>
               <DialogTitle>{selectedPost.title}</DialogTitle>
             </DialogHeader>
