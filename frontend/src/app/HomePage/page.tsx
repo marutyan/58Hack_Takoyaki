@@ -101,7 +101,7 @@ type Post = {
               <Menu />
             </Button>
           </SheetTrigger>
-          <SheetContent side="left">
+          <SheetContent side="left" className="bg-white" >
             <SheetHeader>
               <SheetTitle>メニュー</SheetTitle>
             </SheetHeader>
@@ -187,7 +187,7 @@ type Post = {
             <PlusCircle className="h-6 w-6" />
           </Button>
         </DialogTrigger>
-        <DialogContent>
+        <DialogContent className="bg-white">
           <DialogHeader>
             <DialogTitle>校則変更の提案</DialogTitle>
           </DialogHeader>
@@ -214,7 +214,7 @@ type Post = {
       {/* Post detail dialog */}
       {selectedPost && (
         <Dialog open={!!selectedPost} onOpenChange={() => setSelectedPost(null)}>
-          <DialogContent>
+          <DialogContent className="bg-white">
             <DialogHeader>
               <DialogTitle>{selectedPost.title}</DialogTitle>
             </DialogHeader>
