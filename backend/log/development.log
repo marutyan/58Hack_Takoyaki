@@ -26932,3 +26932,210 @@ Processing by PostsController#index as HTML
 Completed 200 OK in 10ms (Views: 5.3ms | ActiveRecord: 0.6ms (9 queries, 0 cached) | GC: 1.1ms)
 
 
+Started GET "/" for 127.0.0.1 at 2024-09-21 13:21:42 +0900
+  [1m[36mActiveRecord::SchemaMigration Load (0.1ms)[0m  [1m[34mSELECT "schema_migrations"."version" FROM "schema_migrations" ORDER BY "schema_migrations"."version" ASC[0m
+Processing by LoginController#index as HTML
+  Rendering layout layouts/application.html.erb
+  Rendering login/index.html.erb within layouts/application
+  Rendered login/index.html.erb within layouts/application (Duration: 2.0ms | GC: 0.0ms)
+  Rendered layout layouts/application.html.erb (Duration: 1007.1ms | GC: 22.2ms)
+Completed 200 OK in 1036ms (Views: 1011.2ms | ActiveRecord: 0.0ms (0 queries, 0 cached) | GC: 23.6ms)
+
+
+Started GET "/manifest.json" for 127.0.0.1 at 2024-09-21 13:21:43 +0900
+Processing by Rails::PwaController#manifest as JSON
+  Rendering pwa/manifest.json.erb
+  Rendered pwa/manifest.json.erb (Duration: 0.3ms | GC: 0.0ms)
+Completed 200 OK in 3ms (Views: 2.0ms | ActiveRecord: 0.0ms (0 queries, 0 cached) | GC: 0.0ms)
+
+
+Started GET "/users/sign_up" for 127.0.0.1 at 2024-09-21 13:21:46 +0900
+Processing by Devise::RegistrationsController#new as HTML
+  Rendering layout layouts/application.html.erb
+  Rendering devise/registrations/new.html.erb within layouts/application
+  Rendered devise/shared/_error_messages.html.erb (Duration: 0.3ms | GC: 0.0ms)
+  Rendered devise/shared/_links.html.erb (Duration: 0.4ms | GC: 0.0ms)
+  Rendered devise/registrations/new.html.erb within layouts/application (Duration: 12.6ms | GC: 0.6ms)
+  Rendered layout layouts/application.html.erb (Duration: 13.7ms | GC: 0.8ms)
+Completed 200 OK in 30ms (Views: 15.8ms | ActiveRecord: 1.6ms (0 queries, 0 cached) | GC: 1.8ms)
+
+
+Started GET "/users/sign_in" for 127.0.0.1 at 2024-09-21 13:21:46 +0900
+Processing by Devise::SessionsController#new as HTML
+  Rendering layout layouts/application.html.erb
+  Rendering devise/sessions/new.html.erb within layouts/application
+  Rendered devise/shared/_links.html.erb (Duration: 0.2ms | GC: 0.0ms)
+  Rendered devise/sessions/new.html.erb within layouts/application (Duration: 4.8ms | GC: 0.3ms)
+  Rendered layout layouts/application.html.erb (Duration: 6.3ms | GC: 0.5ms)
+Completed 200 OK in 9ms (Views: 7.6ms | ActiveRecord: 0.0ms (0 queries, 0 cached) | GC: 0.5ms)
+
+
+Started GET "/users/sign_up" for 127.0.0.1 at 2024-09-21 13:21:46 +0900
+Processing by Devise::RegistrationsController#new as HTML
+  Rendering layout layouts/application.html.erb
+  Rendering devise/registrations/new.html.erb within layouts/application
+  Rendered devise/shared/_error_messages.html.erb (Duration: 0.0ms | GC: 0.0ms)
+  Rendered devise/shared/_links.html.erb (Duration: 0.1ms | GC: 0.0ms)
+  Rendered devise/registrations/new.html.erb within layouts/application (Duration: 1.4ms | GC: 0.0ms)
+  Rendered layout layouts/application.html.erb (Duration: 2.5ms | GC: 0.1ms)
+Completed 200 OK in 4ms (Views: 2.8ms | ActiveRecord: 0.0ms (0 queries, 0 cached) | GC: 0.3ms)
+
+
+Started POST "/users" for 127.0.0.1 at 2024-09-21 13:22:06 +0900
+Processing by Devise::RegistrationsController#create as TURBO_STREAM
+  Parameters: {"user"=>{"email"=>"[FILTERED]", "name"=>"Keisuke Marutani", "age"=>"高校3年生", "gender"=>"男性", "password"=>"[FILTERED]", "password_confirmation"=>"[FILTERED]"}, "commit"=>"Sign up"}
+  [1m[36mTRANSACTION (0.0ms)[0m  [1m[36mbegin transaction[0m
+  [1m[36mUser Exists? (1.2ms)[0m  [1m[34mSELECT 1 AS one FROM "users" WHERE "users"."email" = ? LIMIT ?[0m  [["email", "[FILTERED]"], ["LIMIT", 1]]
+  [1m[36mUser Create (0.1ms)[0m  [1m[32mINSERT INTO "users" ("email", "encrypted_password", "reset_password_token", "reset_password_sent_at", "remember_created_at", "created_at", "updated_at", "name", "age", "gender") VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?) RETURNING "id"[0m  [["email", "[FILTERED]"], ["encrypted_password", "[FILTERED]"], ["reset_password_token", "[FILTERED]"], ["reset_password_sent_at", "[FILTERED]"], ["remember_created_at", nil], ["created_at", "2024-09-21 04:22:06.885890"], ["updated_at", "2024-09-21 04:22:06.885890"], ["name", "Keisuke Marutani"], ["age", "高校3年生"], ["gender", "男性"]]
+  [1m[36mTRANSACTION (0.2ms)[0m  [1m[36mcommit transaction[0m
+Redirected to http://127.0.0.1:8000/posts
+Completed 303 See Other in 532ms (ActiveRecord: 1.5ms (2 queries, 0 cached) | GC: 1.2ms)
+
+
+Started GET "/posts" for 127.0.0.1 at 2024-09-21 13:22:06 +0900
+Processing by PostsController#index as TURBO_STREAM
+  [1m[36mUser Load (0.1ms)[0m  [1m[34mSELECT "users".* FROM "users" WHERE "users"."id" = ? ORDER BY "users"."id" ASC LIMIT ?[0m  [["id", 5], ["LIMIT", 1]]
+  [1m[36mUser Count (0.1ms)[0m  [1m[34mSELECT COUNT(*) AS "count_all", "users"."age" AS "users_age", "posts"."category" AS "posts_category" FROM "users" INNER JOIN "posts" ON "posts"."user_id" = "users"."id" GROUP BY "users"."age", "posts"."category"[0m
+  ↳ app/controllers/posts_controller.rb:15:in `index'
+  Rendering layout layouts/application.html.erb
+  Rendering posts/index.html.erb within layouts/application
+  [1m[36mPost Load (0.0ms)[0m  [1m[34mSELECT "posts".* FROM "posts"[0m
+  ↳ app/views/posts/index.html.erb:11
+  [1m[36mUser Load (0.1ms)[0m  [1m[34mSELECT "users".* FROM "users" WHERE "users"."id" IN (?, ?)[0m  [["id", 3], ["id", 1]]
+  ↳ app/views/posts/index.html.erb:11
+  [1m[36mFavorite Exists? (0.0ms)[0m  [1m[34mSELECT 1 AS one FROM "favorites" WHERE "favorites"."post_id" = ? AND "favorites"."user_id" = ? LIMIT ?[0m  [["post_id", 27], ["user_id", 5], ["LIMIT", 1]]
+  ↳ app/models/post.rb:12:in `favorited?'
+  [1m[36mFavorite Count (0.0ms)[0m  [1m[34mSELECT COUNT(*) FROM "favorites" WHERE "favorites"."post_id" = ?[0m  [["post_id", 27]]
+  ↳ app/views/posts/index.html.erb:38
+  [1m[36mFavorite Exists? (0.0ms)[0m  [1m[34mSELECT 1 AS one FROM "favorites" WHERE "favorites"."post_id" = ? AND "favorites"."user_id" = ? LIMIT ?[0m  [["post_id", 31], ["user_id", 5], ["LIMIT", 1]]
+  ↳ app/models/post.rb:12:in `favorited?'
+  [1m[36mFavorite Count (0.0ms)[0m  [1m[34mSELECT COUNT(*) FROM "favorites" WHERE "favorites"."post_id" = ?[0m  [["post_id", 31]]
+  ↳ app/views/posts/index.html.erb:38
+  Rendered posts/index.html.erb within layouts/application (Duration: 22.6ms | GC: 5.3ms)
+  Rendered layout layouts/application.html.erb (Duration: 23.6ms | GC: 5.4ms)
+Completed 200 OK in 39ms (Views: 23.8ms | ActiveRecord: 0.5ms (8 queries, 0 cached) | GC: 6.1ms)
+
+
+Started GET "/posts/27/edit" for 127.0.0.1 at 2024-09-21 13:22:54 +0900
+Processing by PostsController#edit as HTML
+  Parameters: {"id"=>"27"}
+  [1m[36mUser Load (0.1ms)[0m  [1m[34mSELECT "users".* FROM "users" WHERE "users"."id" = ? ORDER BY "users"."id" ASC LIMIT ?[0m  [["id", 5], ["LIMIT", 1]]
+  [1m[36mPost Load (0.2ms)[0m  [1m[34mSELECT "posts".* FROM "posts" WHERE "posts"."id" = ? LIMIT ?[0m  [["id", 27], ["LIMIT", 1]]
+  ↳ app/controllers/posts_controller.rb:76:in `set_post'
+  [1m[36mUser Load (0.1ms)[0m  [1m[34mSELECT "users".* FROM "users" WHERE "users"."id" = ? LIMIT ?[0m  [["id", 3], ["LIMIT", 1]]
+  ↳ app/controllers/posts_controller.rb:70:in `authorize_user!'
+Redirected to http://127.0.0.1:8000/posts
+Filter chain halted as :authorize_user! rendered or redirected
+Completed 302 Found in 9ms (ActiveRecord: 0.4ms (3 queries, 0 cached) | GC: 0.8ms)
+
+
+Started GET "/posts" for 127.0.0.1 at 2024-09-21 13:22:54 +0900
+Processing by PostsController#index as HTML
+  [1m[36mUser Load (0.0ms)[0m  [1m[34mSELECT "users".* FROM "users" WHERE "users"."id" = ? ORDER BY "users"."id" ASC LIMIT ?[0m  [["id", 5], ["LIMIT", 1]]
+  [1m[36mUser Count (0.1ms)[0m  [1m[34mSELECT COUNT(*) AS "count_all", "users"."age" AS "users_age", "posts"."category" AS "posts_category" FROM "users" INNER JOIN "posts" ON "posts"."user_id" = "users"."id" GROUP BY "users"."age", "posts"."category"[0m
+  ↳ app/controllers/posts_controller.rb:15:in `index'
+  Rendering layout layouts/application.html.erb
+  Rendering posts/index.html.erb within layouts/application
+  [1m[36mPost Load (0.0ms)[0m  [1m[34mSELECT "posts".* FROM "posts"[0m
+  ↳ app/views/posts/index.html.erb:11
+  [1m[36mUser Load (0.1ms)[0m  [1m[34mSELECT "users".* FROM "users" WHERE "users"."id" IN (?, ?)[0m  [["id", 3], ["id", 1]]
+  ↳ app/views/posts/index.html.erb:11
+  [1m[36mFavorite Exists? (0.1ms)[0m  [1m[34mSELECT 1 AS one FROM "favorites" WHERE "favorites"."post_id" = ? AND "favorites"."user_id" = ? LIMIT ?[0m  [["post_id", 27], ["user_id", 5], ["LIMIT", 1]]
+  ↳ app/models/post.rb:12:in `favorited?'
+  [1m[36mFavorite Count (0.0ms)[0m  [1m[34mSELECT COUNT(*) FROM "favorites" WHERE "favorites"."post_id" = ?[0m  [["post_id", 27]]
+  ↳ app/views/posts/index.html.erb:38
+  [1m[36mFavorite Exists? (0.0ms)[0m  [1m[34mSELECT 1 AS one FROM "favorites" WHERE "favorites"."post_id" = ? AND "favorites"."user_id" = ? LIMIT ?[0m  [["post_id", 31], ["user_id", 5], ["LIMIT", 1]]
+  ↳ app/models/post.rb:12:in `favorited?'
+  [1m[36mFavorite Count (0.0ms)[0m  [1m[34mSELECT COUNT(*) FROM "favorites" WHERE "favorites"."post_id" = ?[0m  [["post_id", 31]]
+  ↳ app/views/posts/index.html.erb:38
+  Rendered posts/index.html.erb within layouts/application (Duration: 5.8ms | GC: 0.6ms)
+  Rendered layout layouts/application.html.erb (Duration: 6.8ms | GC: 0.6ms)
+Completed 200 OK in 10ms (Views: 6.8ms | ActiveRecord: 0.4ms (8 queries, 0 cached) | GC: 0.9ms)
+
+
+Started POST "/posts/27/favorites" for 127.0.0.1 at 2024-09-21 13:22:56 +0900
+Processing by FavoritesController#create as TURBO_STREAM
+  Parameters: {"post_id"=>"27"}
+  [1m[36mPost Load (0.1ms)[0m  [1m[34mSELECT "posts".* FROM "posts" WHERE "posts"."id" = ? LIMIT ?[0m  [["id", 27], ["LIMIT", 1]]
+  ↳ app/controllers/favorites_controller.rb:30:in `set_post'
+  [1m[36mUser Load (0.0ms)[0m  [1m[34mSELECT "users".* FROM "users" WHERE "users"."id" = ? ORDER BY "users"."id" ASC LIMIT ?[0m  [["id", 5], ["LIMIT", 1]]
+  ↳ app/controllers/favorites_controller.rb:6:in `create'
+  [1m[36mFavorite Exists? (0.1ms)[0m  [1m[34mSELECT 1 AS one FROM "favorites" WHERE "favorites"."user_id" = ? LIMIT ?[0m  [["user_id", 5], ["LIMIT", 1]]
+  ↳ app/controllers/favorites_controller.rb:6:in `create'
+  [1m[36mCACHE Favorite Exists? (0.0ms)[0m  [1m[34mSELECT 1 AS one FROM "favorites" WHERE "favorites"."user_id" = ? LIMIT ?[0m  [["user_id", 5], ["LIMIT", 1]]
+  ↳ app/models/favorite.rb:10:in `user_can_only_favorite_one_tweet'
+  [1m[36mTRANSACTION (0.0ms)[0m  [1m[36mbegin transaction[0m
+  ↳ app/controllers/favorites_controller.rb:10:in `create'
+  [1m[36mFavorite Create (0.7ms)[0m  [1m[32mINSERT INTO "favorites" ("user_id", "post_id", "created_at", "updated_at") VALUES (?, ?, ?, ?) RETURNING "id"[0m  [["user_id", 5], ["post_id", 27], ["created_at", "2024-09-21 04:22:56.218767"], ["updated_at", "2024-09-21 04:22:56.218767"]]
+  ↳ app/controllers/favorites_controller.rb:10:in `create'
+  [1m[36mTRANSACTION (0.1ms)[0m  [1m[36mcommit transaction[0m
+  ↳ app/controllers/favorites_controller.rb:10:in `create'
+Redirected to http://127.0.0.1:8000/posts
+Completed 302 Found in 12ms (ActiveRecord: 1.1ms (5 queries, 1 cached) | GC: 1.0ms)
+
+
+Started GET "/posts" for 127.0.0.1 at 2024-09-21 13:22:56 +0900
+Processing by PostsController#index as TURBO_STREAM
+  [1m[36mUser Load (0.0ms)[0m  [1m[34mSELECT "users".* FROM "users" WHERE "users"."id" = ? ORDER BY "users"."id" ASC LIMIT ?[0m  [["id", 5], ["LIMIT", 1]]
+  [1m[36mUser Count (0.1ms)[0m  [1m[34mSELECT COUNT(*) AS "count_all", "users"."age" AS "users_age", "posts"."category" AS "posts_category" FROM "users" INNER JOIN "posts" ON "posts"."user_id" = "users"."id" GROUP BY "users"."age", "posts"."category"[0m
+  ↳ app/controllers/posts_controller.rb:15:in `index'
+  Rendering layout layouts/application.html.erb
+  Rendering posts/index.html.erb within layouts/application
+  [1m[36mPost Load (0.0ms)[0m  [1m[34mSELECT "posts".* FROM "posts"[0m
+  ↳ app/views/posts/index.html.erb:11
+  [1m[36mUser Load (0.1ms)[0m  [1m[34mSELECT "users".* FROM "users" WHERE "users"."id" IN (?, ?)[0m  [["id", 3], ["id", 1]]
+  ↳ app/views/posts/index.html.erb:11
+  [1m[36mFavorite Exists? (0.0ms)[0m  [1m[34mSELECT 1 AS one FROM "favorites" WHERE "favorites"."post_id" = ? AND "favorites"."user_id" = ? LIMIT ?[0m  [["post_id", 27], ["user_id", 5], ["LIMIT", 1]]
+  ↳ app/models/post.rb:12:in `favorited?'
+  [1m[36mFavorite Load (0.0ms)[0m  [1m[34mSELECT "favorites".* FROM "favorites" WHERE "favorites"."post_id" = ? AND "favorites"."user_id" = ? LIMIT ?[0m  [["post_id", 27], ["user_id", 5], ["LIMIT", 1]]
+  ↳ app/views/posts/index.html.erb:32
+  [1m[36mFavorite Count (0.0ms)[0m  [1m[34mSELECT COUNT(*) FROM "favorites" WHERE "favorites"."post_id" = ?[0m  [["post_id", 27]]
+  ↳ app/views/posts/index.html.erb:33
+  [1m[36mFavorite Exists? (0.0ms)[0m  [1m[34mSELECT 1 AS one FROM "favorites" WHERE "favorites"."post_id" = ? AND "favorites"."user_id" = ? LIMIT ?[0m  [["post_id", 31], ["user_id", 5], ["LIMIT", 1]]
+  ↳ app/models/post.rb:12:in `favorited?'
+  [1m[36mFavorite Count (0.0ms)[0m  [1m[34mSELECT COUNT(*) FROM "favorites" WHERE "favorites"."post_id" = ?[0m  [["post_id", 31]]
+  ↳ app/views/posts/index.html.erb:38
+  Rendered posts/index.html.erb within layouts/application (Duration: 5.2ms | GC: 0.5ms)
+  Rendered layout layouts/application.html.erb (Duration: 6.2ms | GC: 0.6ms)
+Completed 200 OK in 9ms (Views: 6.1ms | ActiveRecord: 0.4ms (9 queries, 0 cached) | GC: 0.9ms)
+
+
+Started POST "/posts/31/favorites" for 127.0.0.1 at 2024-09-21 13:22:58 +0900
+Processing by FavoritesController#create as TURBO_STREAM
+  Parameters: {"post_id"=>"31"}
+  [1m[36mPost Load (0.1ms)[0m  [1m[34mSELECT "posts".* FROM "posts" WHERE "posts"."id" = ? LIMIT ?[0m  [["id", 31], ["LIMIT", 1]]
+  ↳ app/controllers/favorites_controller.rb:30:in `set_post'
+  [1m[36mUser Load (0.1ms)[0m  [1m[34mSELECT "users".* FROM "users" WHERE "users"."id" = ? ORDER BY "users"."id" ASC LIMIT ?[0m  [["id", 5], ["LIMIT", 1]]
+  ↳ app/controllers/favorites_controller.rb:6:in `create'
+  [1m[36mFavorite Exists? (0.1ms)[0m  [1m[34mSELECT 1 AS one FROM "favorites" WHERE "favorites"."user_id" = ? LIMIT ?[0m  [["user_id", 5], ["LIMIT", 1]]
+  ↳ app/controllers/favorites_controller.rb:6:in `create'
+Redirected to http://127.0.0.1:8000/posts
+Completed 302 Found in 6ms (ActiveRecord: 0.3ms (3 queries, 0 cached) | GC: 0.9ms)
+
+
+Started GET "/posts" for 127.0.0.1 at 2024-09-21 13:22:58 +0900
+Processing by PostsController#index as TURBO_STREAM
+  [1m[36mUser Load (0.1ms)[0m  [1m[34mSELECT "users".* FROM "users" WHERE "users"."id" = ? ORDER BY "users"."id" ASC LIMIT ?[0m  [["id", 5], ["LIMIT", 1]]
+  [1m[36mUser Count (0.1ms)[0m  [1m[34mSELECT COUNT(*) AS "count_all", "users"."age" AS "users_age", "posts"."category" AS "posts_category" FROM "users" INNER JOIN "posts" ON "posts"."user_id" = "users"."id" GROUP BY "users"."age", "posts"."category"[0m
+  ↳ app/controllers/posts_controller.rb:15:in `index'
+  Rendering layout layouts/application.html.erb
+  Rendering posts/index.html.erb within layouts/application
+  [1m[36mPost Load (0.0ms)[0m  [1m[34mSELECT "posts".* FROM "posts"[0m
+  ↳ app/views/posts/index.html.erb:11
+  [1m[36mUser Load (0.3ms)[0m  [1m[34mSELECT "users".* FROM "users" WHERE "users"."id" IN (?, ?)[0m  [["id", 3], ["id", 1]]
+  ↳ app/views/posts/index.html.erb:11
+  [1m[36mFavorite Exists? (0.1ms)[0m  [1m[34mSELECT 1 AS one FROM "favorites" WHERE "favorites"."post_id" = ? AND "favorites"."user_id" = ? LIMIT ?[0m  [["post_id", 27], ["user_id", 5], ["LIMIT", 1]]
+  ↳ app/models/post.rb:12:in `favorited?'
+  [1m[36mFavorite Load (0.0ms)[0m  [1m[34mSELECT "favorites".* FROM "favorites" WHERE "favorites"."post_id" = ? AND "favorites"."user_id" = ? LIMIT ?[0m  [["post_id", 27], ["user_id", 5], ["LIMIT", 1]]
+  ↳ app/views/posts/index.html.erb:32
+  [1m[36mFavorite Count (0.0ms)[0m  [1m[34mSELECT COUNT(*) FROM "favorites" WHERE "favorites"."post_id" = ?[0m  [["post_id", 27]]
+  ↳ app/views/posts/index.html.erb:33
+  [1m[36mFavorite Exists? (0.0ms)[0m  [1m[34mSELECT 1 AS one FROM "favorites" WHERE "favorites"."post_id" = ? AND "favorites"."user_id" = ? LIMIT ?[0m  [["post_id", 31], ["user_id", 5], ["LIMIT", 1]]
+  ↳ app/models/post.rb:12:in `favorited?'
+  [1m[36mFavorite Count (0.0ms)[0m  [1m[34mSELECT COUNT(*) FROM "favorites" WHERE "favorites"."post_id" = ?[0m  [["post_id", 31]]
+  ↳ app/views/posts/index.html.erb:38
+  Rendered posts/index.html.erb within layouts/application (Duration: 6.7ms | GC: 0.8ms)
+  Rendered layout layouts/application.html.erb (Duration: 7.8ms | GC: 0.8ms)
+Completed 200 OK in 12ms (Views: 7.6ms | ActiveRecord: 0.7ms (9 queries, 0 cached) | GC: 1.3ms)
+
+
