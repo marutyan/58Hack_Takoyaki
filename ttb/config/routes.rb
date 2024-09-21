@@ -21,4 +21,6 @@ Rails.application.routes.draw do
   root 'login#index' # ここを追記します
   get 'login/index' # 自動で設定されたルーティング
 
+  get 'my_posts', to: 'posts#my_posts', as: 'my_posts'
+
 end

@@ -1,0 +1,20 @@
+<h1>自分の投稿</h1>
+
+<ul>
+  <% @posts.each do |post| %>
+    <li>
+      <p>投稿者: <%= post.user.name %></p>
+      <h2><%= post.title %></h2>
+      <p><%= post.content %></p>
+      <p><%= post.category %></p>
+      <p><%= post.id %></p>
+      <span>
+        <small><%= post.created_at %></small>
+      </span>
+      <div class="edit-delete-wrapper">
+        <%= link_to '編集', edit_post_path(post), class: 'link-button' %>
+        <%= link_to '削除', post, method: :delete, data: { confirm: '本当に削除しますか？' }, class: 'link-button' %>
+      </div>
+    </li>
+  <% end %>
+</ul>
