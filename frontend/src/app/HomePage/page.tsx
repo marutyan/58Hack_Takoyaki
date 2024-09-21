@@ -1,6 +1,7 @@
 'use client'
 
 import { useState } from 'react'
+import Link from 'next/link'
 import { Button } from "@/src/app/components/ui/button"
 import { Card, CardContent, CardFooter, CardHeader } from "@/src/app/components/ui/card"
 import { Sheet, SheetContent, SheetHeader, SheetTitle, SheetTrigger } from "@/src/app/components/ui/sheet"
@@ -9,6 +10,7 @@ import { Input } from "@/src/app/components/ui/input"
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "@/src/app/components/ui/select"
 import { Textarea } from "@/src/app/components/ui/textarea"
 import { Bell, Book, ChevronRight, Heart, History, Menu, PlusCircle, Search, User } from "lucide-react"
+
 
 
 type Post = {
@@ -108,10 +110,13 @@ type Post = {
                 <User className="mr-2 h-4 w-4" />
                 ログイン情報
               </Button>
+              <Link href="/kousoku" passHref>
               <Button variant="ghost" className="w-full justify-start">
-                <Book className="mr-2 h-4 w-4" />
+              <Book className="mr-2 h-4 w-4" />
                 校則一覧
               </Button>
+              </Link>
+
               <Button variant="ghost" className="w-full justify-start">
                 <ChevronRight className="mr-2 h-4 w-4" />
                 統計一覧
