@@ -40,3 +40,12 @@ npm install
 npm run dev
 
 を実行
+
+
+Age Counts コンポーネント
+このプロジェクトは、APIから年齢ごとのカウントデータを取得して表示するReactコンポーネントです。
+
+import AgeCounts from './AgeCounts'
+APIエンドポイント http://127.0.0.1:8000/posts/age_counts からデータを取得し、リスト表示します。
+
+以上チャッピーでした
