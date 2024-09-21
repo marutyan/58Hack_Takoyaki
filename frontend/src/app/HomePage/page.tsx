@@ -15,11 +15,11 @@ type Post = {
     id: number;
     title: string;
     content: string;
-    timestamps: string;
+    created_at: string;
     likes: number;
     category: string;
     gender: string;
-    grade: string;
+    age: string;
     details: string;
   }
   
@@ -42,22 +42,22 @@ type Post = {
       id: 1, 
       title: "制服のスカート丈について",
       content: "スカート丈をもう少し短くしても良いのではないでしょうか。", 
-      timestamps: "5分前", 
+      created_at: "5分前", 
       likes: 12, 
       category: "制服",
       gender: "女性",
-      grade: "2年生",
+      age: "2年生",
       details: "現在の校則では膝下5cmとなっていますが、膝上5cmまで認めてほしいです。夏場は特に暑いので、少し短くなることで快適になると思います。"
     },
     { 
       id: 2, 
       title: "髪色規制の緩和",
       content: "髪を染める程度をもう少し緩和してほしいです。", 
-      timestamps: "30分前", 
+      created_at: "30分前", 
       likes: 8,
       category: "頭髪",
       gender: "男性",
-      grade: "3年生",
+      age: "3年生",
       details: "現在は黒髪のみ許可されていますが、茶色程度までは認めてほしいです。個性を表現する一つの方法として、髪色の選択肢を増やすことを提案します。"
     },
   ])
@@ -79,9 +79,9 @@ type Post = {
   const sortPosts = (fetchPosts : Post[], order: SortOrder): Post[] => {
     switch (order) {
       case "latest":
-        return [...fetchPosts].sort((a, b) => new Date(b.timestamps).getTime() - new Date(a.timestamps).getTime());
+        return [...fetchPosts].sort((a, b) => new Date(b.created_at).getTime() - new Date(a.created_at).getTime());
       case "oldest":
-        return [...fetchPosts].sort((a, b) => new Date(a.timestamps).getTime() - new Date(b.timestamps).getTime());
+        return [...fetchPosts].sort((a, b) => new Date(a.created_at).getTime() - new Date(b.created_at).getTime());
       case "mostLiked":
         return [...fetchPosts].sort((a, b) => b.likes - a.likes);
       default:
@@ -167,7 +167,9 @@ type Post = {
             <Card key={post.id} onClick={() => setSelectedPost(post)} className="cursor-pointer">
               <CardHeader>
                 <h3 className="font-bold">{post.title}</h3>
-                <p className="text-sm text-gray-500">{post.timestamps}</p>
+                {/* 投稿された日時を表示したい */}
+
+                <p className="text-sm text-gray-500">{post.created_at}</p>
               </CardHeader>
               <CardContent>
                 <p>{post.content}</p>
@@ -224,11 +226,11 @@ type Post = {
             </DialogHeader>
             <div className="space-y-4">
               <div className="flex justify-between text-sm text-gray-500">
-                <span>{selectedPost.timestamps}</span>
+                <span>{selectedPost.created_at}</span>
                 <span>{selectedPost.category}</span>
               </div>
               <div className="text-sm text-gray-500">
-                投稿者: {selectedPost.gender} / {selectedPost.grade}
+                投稿者: {selectedPost.gender} / {selectedPost.age}
               </div>
               <p className="font-bold">{selectedPost.content}</p>
               <p>{selectedPost.details}</p>
