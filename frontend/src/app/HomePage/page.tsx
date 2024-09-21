@@ -1,7 +1,7 @@
 'use client'
 
 
-import { use, useEffect, useState } from 'react'
+import { useEffect, useState } from 'react'
 import Link from 'next/link'
 
 import { Button } from "@/src/app/components/ui/button"
@@ -32,6 +32,10 @@ type Post = {
 
   export default function Page() {
     const [fetchPosts, setFetchPosts] = useState<Post[]>([])
+    const [selectedPost, setSelectedPost] = useState<Post | null>(null)
+    const [sortOrder, setSortOrder] = useState<SortOrder>('latest')
+    const [searchTerm, setSearchTerm] = useState("")
+    
   useEffect(() => {
     fetch('http://127.0.0.1:8000/posts').then((response) => {
       return response.json()
@@ -41,34 +45,31 @@ type Post = {
     })
   }, [])
 
-  const [posts] = useState<Post[]>([
-    { 
-      id: 1, 
-      title: "制服のスカート丈について",
-      content: "スカート丈をもう少し短くしても良いのではないでしょうか。", 
-      created_at: "5分前", 
-      likes: 12, 
-      category: "制服",
-      gender: "女性",
-      age: "2年生",
-      details: "現在の校則では膝下5cmとなっていますが、膝上5cmまで認めてほしいです。夏場は特に暑いので、少し短くなることで快適になると思います。"
-    },
-    { 
-      id: 2, 
-      title: "髪色規制の緩和",
-      content: "髪を染める程度をもう少し緩和してほしいです。", 
-      created_at: "30分前", 
-      likes: 8,
-      category: "頭髪",
-      gender: "男性",
-      age: "3年生",
-      details: "現在は黒髪のみ許可されていますが、茶色程度までは認めてほしいです。個性を表現する一つの方法として、髪色の選択肢を増やすことを提案します。"
-    },
-  ])
+  // const [posts] = useState<Post[]>([
+  //   { 
+  //     id: 1, 
+  //     title: "制服のスカート丈について",
+  //     content: "スカート丈をもう少し短くしても良いのではないでしょうか。", 
+  //     created_at: "5分前", 
+  //     likes: 12, 
+  //     category: "制服",
+  //     gender: "女性",
+  //     age: "2年生",
+  //     details: "現在の校則では膝下5cmとなっていますが、膝上5cmまで認めてほしいです。夏場は特に暑いので、少し短くなることで快適になると思います。"
+  //   },
+  //   { 
+  //     id: 2, 
+  //     title: "髪色規制の緩和",
+  //     content: "髪を染める程度をもう少し緩和してほしいです。", 
+  //     created_at: "30分前", 
+  //     likes: 8,
+  //     category: "頭髪",
+  //     gender: "男性",
+  //     age: "3年生",
+  //     details: "現在は黒髪のみ許可されていますが、茶色程度までは認めてほしいです。個性を表現する一つの方法として、髪色の選択肢を増やすことを提案します。"
+  //   },
+  // ])
 
-  const [selectedPost, setSelectedPost] = useState<Post | null>(null)
-  const [sortOrder, setSortOrder] = useState<SortOrder>('latest')
-  const [searchTerm, setSearchTerm] = useState("")
 
   const categories = [
     "衣類",
@@ -101,6 +102,7 @@ type Post = {
   )
 
   const sortedPosts = sortPosts(filteredPosts, sortOrder);
+  console.log(sortedPosts);
 
   return (
     <div className="flex flex-col h-screen bg-white">
