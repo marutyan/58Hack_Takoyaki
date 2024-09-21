@@ -29,6 +29,5 @@ Rails.application.routes.draw do
 
   post "/login", to: "login#create"
 
-  post "/signup", to: "signup#create"
-
+  post "/sign_up", to: "sign_up#create"
 end

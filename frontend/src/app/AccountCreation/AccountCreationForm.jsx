@@ -13,18 +13,18 @@ const AccountCreationForm = () => {
 
   const handleCreationClick = useCallback(async (data) => {
     try {
-      const response = await fetch("http://localhost:8000/signup", {
+      const response = await fetch("http://localhost:8000/sign_up", {
         method: "POST",
-        mode: "cors",
-        credentials: "include",
-        headers: {
-          "Content-Type": "application/json",
-          Accept: "application/json",
-        },
-        body: JSON.stringify(data),
+        // mode: "cors",
+        // credentials: true ,
+        // headers: {
+        //   "Content-Type": "application/json",
+        //   Accept: "application/json",
+        // },
+        body: JSON.stringify({ user: data }),
       });
 
-      console.log(JSON.stringify(data));
+      console.log(JSON.stringify({ user: data }),);
 
       if (!response.ok) {
         console.error("responseがダメだったみたい", response);
