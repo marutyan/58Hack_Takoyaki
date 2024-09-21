@@ -1,7 +1,9 @@
 'use client'
 
-import { useState } from 'react'
+
+import { use, useEffect, useState } from 'react'
 import Link from 'next/link'
+
 import { Button } from "@/src/app/components/ui/button"
 import { Card, CardContent, CardFooter, CardHeader } from "@/src/app/components/ui/card"
 import { Sheet, SheetContent, SheetHeader, SheetTitle, SheetTrigger } from "@/src/app/components/ui/sheet"
@@ -17,11 +19,11 @@ type Post = {
     id: number;
     title: string;
     content: string;
-    timestamp: string;
+    created_at: string;
     likes: number;
     category: string;
     gender: string;
-    grade: string;
+    age: string;
     details: string;
   }
   
@@ -29,28 +31,37 @@ type Post = {
   type SortOrder = 'latest' | 'oldest' | 'mostLiked'
 
   export default function Page() {
+    const [fetchPosts, setFetchPosts] = useState<Post[]>([])
+  useEffect(() => {
+    fetch('http://127.0.0.1:8000/posts').then((response) => {
+      return response.json()
+    }).then((data) => {
+      console.log(data)
+      setFetchPosts(data)
+    })
+  }, [])
 
   const [posts] = useState<Post[]>([
     { 
       id: 1, 
       title: "制服のスカート丈について",
       content: "スカート丈をもう少し短くしても良いのではないでしょうか。", 
-      timestamp: "5分前", 
+      created_at: "5分前", 
       likes: 12, 
       category: "制服",
       gender: "女性",
-      grade: "2年生",
+      age: "2年生",
       details: "現在の校則では膝下5cmとなっていますが、膝上5cmまで認めてほしいです。夏場は特に暑いので、少し短くなることで快適になると思います。"
     },
     { 
       id: 2, 
       title: "髪色規制の緩和",
       content: "髪を染める程度をもう少し緩和してほしいです。", 
-      timestamp: "30分前", 
+      created_at: "30分前", 
       likes: 8,
       category: "頭髪",
       gender: "男性",
-      grade: "3年生",
+      age: "3年生",
       details: "現在は黒髪のみ許可されていますが、茶色程度までは認めてほしいです。個性を表現する一つの方法として、髪色の選択肢を増やすことを提案します。"
     },
   ])
@@ -69,24 +80,24 @@ type Post = {
     "学業について"
   ]
 
-  const sortPosts = (posts : Post[], order: SortOrder): Post[] => {
+  const sortPosts = (fetchPosts : Post[], order: SortOrder): Post[] => {
     switch (order) {
       case "latest":
-        return [...posts].sort((a, b) => new Date(b.timestamp).getTime() - new Date(a.timestamp).getTime());
+        return [...fetchPosts].sort((a, b) => new Date(b.created_at).getTime() - new Date(a.created_at).getTime());
       case "oldest":
-        return [...posts].sort((a, b) => new Date(a.timestamp).getTime() - new Date(b.timestamp).getTime());
+        return [...fetchPosts].sort((a, b) => new Date(a.created_at).getTime() - new Date(b.created_at).getTime());
       case "mostLiked":
-        return [...posts].sort((a, b) => b.likes - a.likes);
+        return [...fetchPosts].sort((a, b) => b.likes - a.likes);
       default:
-        return posts;
+        return fetchPosts;
     }
     
   }
 
-  const filteredPosts = posts.filter(post => 
-    post.title.toLowerCase().includes(searchTerm.toLowerCase()) ||
-    post.content.toLowerCase().includes(searchTerm.toLowerCase()) ||
-    post.category.toLowerCase().includes(searchTerm.toLowerCase())
+  const filteredPosts = fetchPosts.filter(fetchPost => 
+    fetchPost.title.toLowerCase().includes(searchTerm.toLowerCase()) ||
+    fetchPost.content.toLowerCase().includes(searchTerm.toLowerCase()) ||
+    fetchPost.category.toLowerCase().includes(searchTerm.toLowerCase())
   )
 
   const sortedPosts = sortPosts(filteredPosts, sortOrder);
@@ -101,6 +112,7 @@ type Post = {
               <Menu />
             </Button>
           </SheetTrigger>
+
           <SheetContent side="left" className="bg-white" >
             <SheetHeader>
               <SheetTitle>メニュー</SheetTitle>
@@ -159,11 +171,13 @@ type Post = {
         </div>
         <div className="space-y-4">
           {/* Posts */}
-          {sortedPosts.map((post) => (
+          {fetchPosts.map((post) => (
             <Card key={post.id} onClick={() => setSelectedPost(post)} className="cursor-pointer">
               <CardHeader>
                 <h3 className="font-bold">{post.title}</h3>
-                <p className="text-sm text-gray-500">{post.timestamp}</p>
+                {/* 投稿された日時を表示したい */}
+
+                <p className="text-sm text-gray-500">{post.created_at}</p>
               </CardHeader>
               <CardContent>
                 <p>{post.content}</p>
@@ -187,6 +201,7 @@ type Post = {
             <PlusCircle className="h-6 w-6" />
           </Button>
         </DialogTrigger>
+
         <DialogContent className="bg-white">
           <DialogHeader>
             <DialogTitle>校則変更の提案</DialogTitle>
@@ -214,17 +229,19 @@ type Post = {
       {/* Post detail dialog */}
       {selectedPost && (
         <Dialog open={!!selectedPost} onOpenChange={() => setSelectedPost(null)}>
+
           <DialogContent className="bg-white">
+
             <DialogHeader>
               <DialogTitle>{selectedPost.title}</DialogTitle>
             </DialogHeader>
             <div className="space-y-4">
               <div className="flex justify-between text-sm text-gray-500">
-                <span>{selectedPost.timestamp}</span>
+                <span>{selectedPost.created_at}</span>
                 <span>{selectedPost.category}</span>
               </div>
               <div className="text-sm text-gray-500">
-                投稿者: {selectedPost.gender} / {selectedPost.grade}
+                投稿者: {selectedPost.gender} / {selectedPost.age}
               </div>
               <p className="font-bold">{selectedPost.content}</p>
               <p>{selectedPost.details}</p>

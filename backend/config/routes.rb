@@ -23,4 +23,8 @@ Rails.application.routes.draw do
 
   get 'my_posts', to: 'posts#my_posts', as: 'my_posts'
 
+  post "/login", to: "login#create"
+
+  post "/signup", to: "signup#create"
+
 end
