@@ -15,7 +15,7 @@ type Post = {
     id: number;
     title: string;
     content: string;
-    timestamp: string;
+    timestamps: string;
     likes: number;
     category: string;
     gender: string;
@@ -42,7 +42,7 @@ type Post = {
       id: 1, 
       title: "制服のスカート丈について",
       content: "スカート丈をもう少し短くしても良いのではないでしょうか。", 
-      timestamp: "5分前", 
+      timestamps: "5分前", 
       likes: 12, 
       category: "制服",
       gender: "女性",
@@ -53,7 +53,7 @@ type Post = {
       id: 2, 
       title: "髪色規制の緩和",
       content: "髪を染める程度をもう少し緩和してほしいです。", 
-      timestamp: "30分前", 
+      timestamps: "30分前", 
       likes: 8,
       category: "頭髪",
       gender: "男性",
@@ -76,24 +76,24 @@ type Post = {
     "学業について"
   ]
 
-  const sortPosts = (posts : Post[], order: SortOrder): Post[] => {
+  const sortPosts = (fetchPosts : Post[], order: SortOrder): Post[] => {
     switch (order) {
       case "latest":
-        return [...posts].sort((a, b) => new Date(b.timestamp).getTime() - new Date(a.timestamp).getTime());
+        return [...fetchPosts].sort((a, b) => new Date(b.timestamps).getTime() - new Date(a.timestamps).getTime());
       case "oldest":
-        return [...posts].sort((a, b) => new Date(a.timestamp).getTime() - new Date(b.timestamp).getTime());
+        return [...fetchPosts].sort((a, b) => new Date(a.timestamps).getTime() - new Date(b.timestamps).getTime());
       case "mostLiked":
-        return [...posts].sort((a, b) => b.likes - a.likes);
+        return [...fetchPosts].sort((a, b) => b.likes - a.likes);
       default:
-        return posts;
+        return fetchPosts;
     }
     
   }
 
-  const filteredPosts = posts.filter(post => 
-    post.title.toLowerCase().includes(searchTerm.toLowerCase()) ||
-    post.content.toLowerCase().includes(searchTerm.toLowerCase()) ||
-    post.category.toLowerCase().includes(searchTerm.toLowerCase())
+  const filteredPosts = fetchPosts.filter(fetchPost => 
+    fetchPost.title.toLowerCase().includes(searchTerm.toLowerCase()) ||
+    fetchPost.content.toLowerCase().includes(searchTerm.toLowerCase()) ||
+    fetchPost.category.toLowerCase().includes(searchTerm.toLowerCase())
   )
 
   const sortedPosts = sortPosts(filteredPosts, sortOrder);
@@ -167,7 +167,7 @@ type Post = {
             <Card key={post.id} onClick={() => setSelectedPost(post)} className="cursor-pointer">
               <CardHeader>
                 <h3 className="font-bold">{post.title}</h3>
-                <p className="text-sm text-gray-500">{post.timestamp}</p>
+                <p className="text-sm text-gray-500">{post.timestamps}</p>
               </CardHeader>
               <CardContent>
                 <p>{post.content}</p>
@@ -224,7 +224,7 @@ type Post = {
             </DialogHeader>
             <div className="space-y-4">
               <div className="flex justify-between text-sm text-gray-500">
-                <span>{selectedPost.timestamp}</span>
+                <span>{selectedPost.timestamps}</span>
                 <span>{selectedPost.category}</span>
               </div>
               <div className="text-sm text-gray-500">
