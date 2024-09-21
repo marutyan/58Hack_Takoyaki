@@ -22,3 +22,9 @@ Things you may want to cover:
 * Deployment instructions
 
 * ...
+
+bundle install
+
+rails s -p 8000
+
+を実行
