@@ -1,6 +1,6 @@
 'use client'
 
-import { useState } from 'react'
+import { use, useEffect, useState } from 'react'
 import { Button } from "@/src/app/components/ui/button"
 import { Card, CardContent, CardFooter, CardHeader } from "@/src/app/components/ui/card"
 import { Sheet, SheetContent, SheetHeader, SheetTitle, SheetTrigger } from "@/src/app/components/ui/sheet"
@@ -27,6 +27,15 @@ type Post = {
   type SortOrder = 'latest' | 'oldest' | 'mostLiked'
 
   export default function Page() {
+    const [fetchPosts, setFetchPosts] = useState<Post[]>([])
+  useEffect(() => {
+    fetch('http://127.0.0.1:8000/posts').then((response) => {
+      return response.json()
+    }).then((data) => {
+      console.log(data)
+      setFetchPosts(data)
+    })
+  }, [])
 
   const [posts] = useState<Post[]>([
     { 
@@ -154,7 +163,7 @@ type Post = {
         </div>
         <div className="space-y-4">
           {/* Posts */}
-          {sortedPosts.map((post) => (
+          {fetchPosts.map((post) => (
             <Card key={post.id} onClick={() => setSelectedPost(post)} className="cursor-pointer">
               <CardHeader>
                 <h3 className="font-bold">{post.title}</h3>

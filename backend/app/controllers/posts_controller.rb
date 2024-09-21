@@ -1,5 +1,5 @@
 class PostsController < ApplicationController
-  before_action :authenticate_user!
+  # before_action :authenticate_user!
   before_action :set_post, only: [:edit, :update, :destroy]
   before_action :authorize_user!, only: [:edit, :update, :destroy]
 
@@ -17,6 +17,9 @@ class PostsController < ApplicationController
     @chart_data = @category_counts_by_age.map do |(age, category), count|
       { age: age, category: category, count: count }
     end
+
+    
+    render json: @posts
   end
 
   def new
