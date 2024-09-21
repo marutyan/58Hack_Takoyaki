@@ -26,6 +26,7 @@
 /backend/storage/*
 !/backend/storage/.keep
 /backend/tmp/storage/*
+/backend/tmp/cache/*
 !/backend/tmp/storage/
 !/backend/tmp/storage/.keep
 
