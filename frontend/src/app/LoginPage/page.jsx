@@ -32,11 +32,16 @@ function LoginPage() {
       })
       if (!response.ok) {
        console.error("responseがダメだったみたい", response);
+       alert("ログインに失敗しました");
+       throw new Error("ログインに失敗しました");
       }
+
+      
+
+      const userData = await response.json();
+      localStorage.setItem("user", JSON.stringify(userData));
       router.push("/HomePage");
-
-      throw new Error("ログインに失敗しました");
-
+      console.log("userData", userData);
       
       }catch(error){
         console.log("catchに入ったよ", error);
