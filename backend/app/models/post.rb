@@ -6,7 +6,7 @@ class Post < ApplicationRecord
   validates :content, presence: true
   validates :category, presence: true
 
-  validate :user_can_only_have_one_post, on: :create
+  #validate :user_can_only_have_one_post, on: :create
 
   def favorited?(user)
     favorites.exists?(user_id: user.id)
