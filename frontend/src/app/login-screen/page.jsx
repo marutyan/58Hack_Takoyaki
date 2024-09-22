@@ -26,13 +26,38 @@ function LoginScreen() {
         .login-screen {
           background-color: #ffffff;
           display: flex;
-          max-width: 360px;
           flex-direction: column;
-          overflow: hidden;
           align-items: center;
           justify-content: center;
-          padding: 309px 72px;
+          width: 100%;
+          height: 100vh;
+          max-width: 360px;
+          padding: 20px;
+          margin: 0 auto;
+          box-sizing: border-box;
         }
+
+        @media (max-width: 600px) {
+          .login-screen {
+          padding: 10px; 
+          max-width: 100%;
+        }
+        }
+        
+        @media (min-width: 601px) and (max-width: 1024px) {
+        .login-screen {
+        padding: 40px;
+        max-width: 90%;
+        }
+        }
+
+        @media (min-width: 1025px) {
+        .login-screen {
+        padding: 50px 20px; 
+        max-width: 100%;
+        }
+        }
+
       `}</style>
     </>
   );
