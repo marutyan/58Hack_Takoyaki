@@ -172,7 +172,7 @@ function LoginPage() {
 /* 大画面 (デスクトップ 1025px以上) */
 @media (min-width: 1025px) {
   .login-page {
-    max-width: 50%; /* デスクトップでは50%の幅に */
+    max-width: 100%; /* デスクトップでは50%の幅に */
     padding: 60px 20px; /* パディングを増加 */
   }
 

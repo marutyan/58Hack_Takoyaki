@@ -136,7 +136,7 @@ export default css.global`
   @media (min-width: 1025px) {
     .user-type-selection {
       padding: 30px;
-      max-width: 50%; /* 幅を50%にして広めに */
+      max-width: 100%; /* 幅を50%にして広めに */
     }
 
     .title {
