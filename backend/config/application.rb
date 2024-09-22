@@ -25,5 +25,6 @@ module Ttb
     # config.eager_load_paths << Rails.root.join("extras")
     config.time_zone = 'Tokyo'
     config.action_controller.allow_forgery_protection = false
+    config.session_config = {domain: :all}
   end
 end

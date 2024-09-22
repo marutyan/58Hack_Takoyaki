@@ -3,15 +3,16 @@
 
 import { useEffect, useState } from 'react'
 import Link from 'next/link'
-
+import { useRouter } from 'next/navigation'
 import { Button } from "@/src/app/components/ui/button"
 import { Card, CardContent, CardFooter, CardHeader } from "@/src/app/components/ui/card"
 import { Sheet, SheetContent, SheetHeader, SheetTitle, SheetTrigger } from "@/src/app/components/ui/sheet"
 import { Dialog, DialogContent, DialogHeader, DialogTitle, DialogTrigger } from "@/src/app/components/ui/dialog"
 import { Input } from "@/src/app/components/ui/input"
-import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "@/src/app/components/ui/select"
+import { SelectContent, SelectItem, SelectTrigger, SelectValue } from "@/src/app/components/ui/select"
 import { Textarea } from "@/src/app/components/ui/textarea"
 import { Bell, Book, ChevronRight, Heart, History, Menu, PlusCircle, Search, User } from "lucide-react"
+import Select from './Select';
 
 
 
@@ -26,6 +27,10 @@ type Post = {
     age: string;
     details: string;
   }
+
+  type User = {
+    name: string;
+  }
   
   // 可能なorder値の定義
   type SortOrder = 'latest' | 'oldest' | 'mostLiked'
@@ -35,15 +40,65 @@ type Post = {
     const [selectedPost, setSelectedPost] = useState<Post | null>(null)
     const [sortOrder, setSortOrder] = useState<SortOrder>('latest')
     const [searchTerm, setSearchTerm] = useState("")
-    
+    const [user, setUser] = useState<User>()
+    const router = useRouter()
+
+    useEffect(() => {
+      const storedUser = localStorage.getItem("user")
+      if (storedUser) {
+        setUser(JSON.parse(storedUser))
+      } else {
+        router.push("/LoginPage")
+      }
+    }, [router])
+
   useEffect(() => {
-    fetch('http://127.0.0.1:8000/posts').then((response) => {
+    fetch('http://localhost:8000/posts').then((response) => {
       return response.json()
     }).then((data) => {
       console.log(data)
       setFetchPosts(data)
     })
   }, [])
+
+  
+
+
+  const handlePostSubmit = async () => {
+    const title = (document.getElementById('post-title') as HTMLInputElement).value
+    const category = (document.getElementById('post-category') as HTMLSelectElement).value
+    const content = (document.getElementById('post-content') as HTMLTextAreaElement).value
+    console.log("こんに愛火google」")
+        // localStorageからユーザー情報を取得
+        const storedUser = localStorage.getItem('user')
+        const userId = storedUser ? JSON.parse(storedUser).user.id : null
+    const postData = {
+      title,
+    content,
+    category,
+    user_id: userId,
+    }
+
+    const response = await fetch('http://localhost:8000/posts', {
+      method: 'POST',
+      mode: 'cors',
+      credentials: 'include',
+      headers: {
+        'Content-Type': 'application/json',
+      },
+      body: JSON.stringify(postData),
+    })
+
+    if (response.ok) {
+      // 投稿が成功したらHomePageにリダイレクト
+      router.push('/HomePage')
+    } else {
+      console.error('投稿に失敗しました')
+      alert('投稿に失敗しました')
+    }
+  }
+
+  console.log(user)
 
   // const [posts] = useState<Post[]>([
   //   { 
@@ -70,7 +125,24 @@ type Post = {
   //   },
   // ])
 
+  const handleDelete = async (postId) => {
+    try {
+      const response = await fetch(`http://localhost:8000/posts/${postId}`, {
+        method: 'DELETE',
+      });
 
+      if (response.ok) {
+        console.log('Post deleted successfully');
+        setFetchPosts(fetchPosts.filter((post) => post.id !== postId));
+      } else {
+        console.error('Failed to delete post');
+      }
+    } catch (error) {
+      console.error('Error deleting post', error);
+    }
+  };
+
+  
   const categories = [
     "衣類",
     "頭髪",
@@ -173,12 +245,12 @@ type Post = {
         </div>
         <div className="space-y-4">
           {/* Posts */}
-          {fetchPosts.map((post) => (
+          {sortedPosts.map((post) => (
             <Card key={post.id} onClick={() => setSelectedPost(post)} className="cursor-pointer">
               <CardHeader>
                 <h3 className="font-bold">{post.title}</h3>
                 {/* 投稿された日時を表示したい */}
-
+              
                 <p className="text-sm text-gray-500">{post.created_at}</p>
               </CardHeader>
               <CardContent>
@@ -190,11 +262,18 @@ type Post = {
                   <Heart className="mr-2 h-4 w-4 fill-current" />
                   {post.likes}
                 </Button>
+                <Button variant="ghost" size="sm" className="text-red-500" onClick={() => handleDelete(post.id)}>
+        削除
+      </Button>
               </CardFooter>
             </Card>
           ))}
         </div>
       </main>
+      
+
+
+      
 
       {/* New post button */}
       <Dialog>
@@ -209,21 +288,15 @@ type Post = {
             <DialogTitle>校則変更の提案</DialogTitle>
           </DialogHeader>
           <div className="space-y-4">
-            <Input placeholder="タイトルを入力..." />
-            <Select>
-              <SelectTrigger>
-                <SelectValue placeholder="カテゴリを選択" />
-              </SelectTrigger>
-              <SelectContent>
-                {categories.map((category) => (
-                  <SelectItem key={category} value={category}>
-                    {category}
-                  </SelectItem>
-                ))}
-              </SelectContent>
+            <Input id="post-title" placeholder="タイトルを入力..." />
+            <Select label="カテゴリ" id="post-category">
+            <option value="高校１年生">高校１年生</option>
+        <option value="高校２年生">高校２年生</option>
+        <option value="高校３年生">高校３年生</option>
+
             </Select>
-            <Textarea placeholder="提案内容を入力..." />
-            <Button className="w-full bg-[#E29D36] hover:bg-[#D18C25] text-white">投稿</Button>
+            <Textarea id="post-content" placeholder="提案内容を入力..." />
+            <Button onClick={handlePostSubmit} className="w-full bg-[#E29D36] hover:bg-[#D18C25] text-white">投稿 </Button>
           </div>
         </DialogContent>
       </Dialog>

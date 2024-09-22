@@ -1,7 +1,7 @@
 class PostsController < ApplicationController
   # before_action :authenticate_user!
   before_action :set_post, only: [:edit, :update, :destroy]
-  before_action :authorize_user!, only: [:edit, :update, :destroy]
+  #before_action :authorize_user!, only: [:edit, :update, :destroy]
 
   def index
     @posts = Post.all
@@ -28,17 +28,18 @@ class PostsController < ApplicationController
 
   def create
     # ユーザーが既にPostを持っているかどうかをチェック
-    if current_user.posts.exists?
-      redirect_to posts_path, alert: '1人のユーザーは1つのPostしか作成できません。'
-    else
-      @post = current_user.posts.new(post_params)
-      if @post.save
+    user = User.find(params[:user_id])
+    #if user.posts.exists?
+    #  redirect_to posts_path, alert: '1人のユーザーは1つのPostしか作成できません。'
+    #else
+      @post = user.posts.new(post_params)
+      if @post.save!
         #redirect_to @post, notice: 'Postが作成されました。'
         render json: @post, status: :created
       else
         render json: @post.errors, status: :unprocessable_entity
       end
-    end
+    #end
   end
 
   def edit
