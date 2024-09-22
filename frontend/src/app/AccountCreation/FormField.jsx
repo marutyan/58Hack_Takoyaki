@@ -40,6 +40,21 @@ const FormField = forwardRef(({ label, type, ...props }, ref) => {
           font-weight: 400;
           color:#000;
         }
+        .personal-info-registration {
+          background-color: #fff;
+          display: flex;
+          flex-direction: column;
+          max-width: 360px;
+          overflow: hidden;
+          padding: 55px 59px 350px;
+        }
+        .title {
+          color: #000;
+          text-align: center;
+          align-self: center;
+          margin-top: 60px;
+          font: 700 30px/1 Inter, sans-serif;
+        }
       `}</style>
     </div>
   );
