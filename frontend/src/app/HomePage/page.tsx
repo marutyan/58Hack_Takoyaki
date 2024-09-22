@@ -120,17 +120,18 @@ type Post = {
               <SheetTitle>メニュー</SheetTitle>
             </SheetHeader>
             <div className="py-4 space-y-4">
+              <Link href="/userinfo" passHref>
               <Button variant="ghost" className="w-full justify-start">
                 <User className="mr-2 h-4 w-4" />
                 ログイン情報
               </Button>
+              </Link>
               <Link href="/kousoku" passHref>
               <Button variant="ghost" className="w-full justify-start">
               <Book className="mr-2 h-4 w-4" />
                 校則一覧
               </Button>
               </Link>
-
               <Button variant="ghost" className="w-full justify-start">
                 <ChevronRight className="mr-2 h-4 w-4" />
                 統計一覧
