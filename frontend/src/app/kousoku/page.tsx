@@ -55,7 +55,9 @@ export default function SchoolRules() {
     <div className="min-h-screen p-4 md:p-8">
       <header className="mb-8">
         <Link href="/HomePage" passHref>
-          <Button variant="ghost" className="mb-4 ">
+        <Button 
+          variant="ghost" 
+          className="mb-4 text-[#E29D36] hover:text-white hover:bg-[#E29D36]"        >          
             <ArrowLeft className="mr-2 h-4 w-4" />
             戻る
           </Button>
