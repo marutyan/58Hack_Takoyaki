@@ -23,7 +23,7 @@ function LoginScreen() {
         <Logo />
       </main>
       <style jsx>{`
-        .login-screen {
+         .login-screen {
           background-color: #ffffff;
           display: flex;
           flex-direction: column;

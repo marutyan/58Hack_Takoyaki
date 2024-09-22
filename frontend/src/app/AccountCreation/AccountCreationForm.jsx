@@ -13,6 +13,7 @@ const AccountCreationForm = () => {
 
   const handleCreationClick = useCallback(async (data) => {
     try {
+
       const response = await fetch("http://localhost:8000/sign_up", {
         method: "POST",
         // mode: "cors",
@@ -25,7 +26,6 @@ const AccountCreationForm = () => {
       });
 
       console.log(JSON.stringify({ user: data }),);
-
       if (!response.ok) {
         console.error("responseがダメだったみたい", response);
       }else{
@@ -37,7 +37,6 @@ const AccountCreationForm = () => {
       console.log("catchに入ったよ", error);
     }
   });
-
 
 
   return (
@@ -84,7 +83,6 @@ const AccountCreationForm = () => {
         <option value="男">男</option>
         <option value="女">女</option>
       </Select>
-
       <button type="submit" className="submit-button">次へ</button>
     </form>
   );
